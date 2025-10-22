@@ -6,20 +6,14 @@ class User < ApplicationRecord
 
   validates :nickname, presence: true
 
-  validates :email, presence: true, uniqueness: true,
-                    format: { with: URI::MailTo::EMAIL_REGEXP }
-
   validates :password, presence: true, length: { minimum: 6 },
-                       format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i,
-                                 message: 'は半角英数字をそれぞれ含めて設定してください' }
+                       format: { with: /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i }
 
   validates :last_name, :first_name, presence: true,
-                                     format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/,
-                                               message: 'は全角文字で入力してください' }
+                                     format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ }
 
   validates :last_name_kana, :first_name_kana, presence: true,
-                                               format: { with: /\A[ァ-ヶー－]+\z/,
-                                                         message: 'は全角カタカナで入力してください' }
+                                               format: { with: /\A[ァ-ヶー－]+\z/ }
 
   validates :birthday, presence: true
 end
