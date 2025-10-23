@@ -34,9 +34,5 @@ class Item < ApplicationRecord
   # 価格の範囲（¥300〜¥9,999,999）
   validates :price, numericality: { only_integer: true,
                                     greater_than_or_equal_to: 300,
-                                    less_than_or_equal_to: 9_999_999,
-                                    message: 'is out of setting range' }
-
-  # 半角数字のみ許可
-  validates :price, format: { with: /\A[0-9]+\z/, message: 'is invalid. Input half-width characters' }
+                                    less_than_or_equal_to: 9_999_999 }
 end
