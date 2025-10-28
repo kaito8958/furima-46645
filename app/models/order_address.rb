@@ -3,19 +3,17 @@ class OrderAddress
   attr_accessor :postal_code, :prefecture_id, :city, :house_number, :building_name,
                 :phone_number, :user_id, :item_id, :token
 
-  # ↓ バリデーション
   with_options presence: true do
-    validates :postal_code
-    validates :prefecture_id
+    validates :postal_code, format: { with: /\A\d{3}-\d{4}\z/, allow_blank: true }
+    validates :prefecture_id, numericality: { other_than: 1 }
     validates :city
     validates :house_number
-    validates :phone_number
+    validates :phone_number, format: { with: /\A\d{10,11}\z/, allow_blank: true }
     validates :user_id
     validates :item_id
     validates :token
   end
 
-  # ↓ 保存処理（OrderとAddressを同時に保存）
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
     Address.create(
